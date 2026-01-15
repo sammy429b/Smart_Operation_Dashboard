@@ -6,10 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { InlineSpinner } from '@/shared/components/LoadingSpinner';
-import { Eye, EyeOff, LogIn } from 'lucide-react';
+import { Eye, EyeOff, LogIn, User, Lock } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Username is required'),
@@ -17,7 +18,6 @@ const loginSchema = z.object({
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
-
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -38,24 +38,32 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
-        <CardDescription className="text-center">
-          Enter your credentials to access the dashboard
+    <Card className="w-full shadow-xl border-0 bg-card/80 backdrop-blur-sm">
+      <CardHeader className="space-y-1 pb-4 sm:pb-6">
+        <CardTitle className="text-xl sm:text-2xl font-bold text-center">Welcome Back</CardTitle>
+        <CardDescription className="text-center text-sm sm:text-base">
+          Sign in to access your dashboard
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
             <FormField
               control={form.control}
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-sm">Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter username" {...field} disabled={isLoading} />
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Enter your username"
+                        className="pl-10 h-10 sm:h-11"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,12 +75,14 @@ export function LoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-sm">Password</FormLabel>
                   <FormControl>
                     <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder="Enter password"
+                        placeholder="Enter your password"
+                        className="pl-10 pr-10 h-10 sm:h-11"
                         {...field}
                         disabled={isLoading}
                       />
@@ -92,7 +102,11 @@ export function LoginForm() {
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full h-10 sm:h-11 text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-shadow"
+              disabled={isLoading}
+            >
               {isLoading ? (
                 <>
                   <InlineSpinner className="mr-2" />
@@ -105,13 +119,20 @@ export function LoginForm() {
                 </>
               )}
             </Button>
-
-            <p className="text-xs text-muted-foreground text-center mt-4">
-              Test credentials: <code className="text-primary">emilys</code> / <code className="text-primary">emilyspass</code>
-            </p>
           </form>
         </Form>
       </CardContent>
+      <CardFooter className="flex flex-col gap-3 pt-0">
+        <Separator />
+        <div className="w-full p-3 rounded-lg bg-muted/50 text-center">
+          <p className="text-xs sm:text-sm text-muted-foreground">
+            <span className="font-medium">Demo:</span>{' '}
+            <code className="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-mono text-xs">emilys</code>
+            {' / '}
+            <code className="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-mono text-xs">emilyspass</code>
+          </p>
+        </div>
+      </CardFooter>
     </Card>
   );
 }
