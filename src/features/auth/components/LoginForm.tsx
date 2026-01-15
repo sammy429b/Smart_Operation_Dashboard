@@ -18,12 +18,8 @@ const loginSchema = z.object({
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-interface LoginFormProps {
-  onSuccess?: () => void;
-  redirectTo?: string;
-}
 
-export function LoginForm({ onSuccess, redirectTo = '/' }: LoginFormProps) {
+export function LoginForm() {
   const navigate = useNavigate();
   const { login, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -37,8 +33,7 @@ export function LoginForm({ onSuccess, redirectTo = '/' }: LoginFormProps) {
     event?.preventDefault();
     const result = await login(data.username, data.password);
     if (result.success) {
-      onSuccess?.();
-      navigate(redirectTo, { replace: true });
+      navigate('/', { replace: true });
     }
   };
 
