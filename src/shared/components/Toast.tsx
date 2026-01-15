@@ -1,6 +1,6 @@
 import { toast as sonnerToast } from 'sonner';
 import { CheckCircle, XCircle, AlertTriangle, Info } from 'lucide-react';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface ToastOptions {
   description?: ReactNode;
