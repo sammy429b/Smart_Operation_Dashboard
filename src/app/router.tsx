@@ -3,6 +3,7 @@ import { ProtectedRoute } from '@/features/auth';
 import { AppLayout } from './layouts/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { WeatherDashboard, CountriesDashboard, NewsDashboard } from '@/features/dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,18 @@ export const router = createBrowserRouter([
         index: true,
         element: <DashboardPage />,
       },
-      // Add more protected routes here
+      {
+        path: 'weather',
+        element: <WeatherDashboard />,
+      },
+      {
+        path: 'countries',
+        element: <CountriesDashboard />,
+      },
+      {
+        path: 'news',
+        element: <NewsDashboard />,
+      },
     ],
   },
   {
