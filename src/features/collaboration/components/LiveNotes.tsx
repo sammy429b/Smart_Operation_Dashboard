@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -12,6 +12,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { toast } from 'sonner';
 
 export const LiveNotes = () => {
+
   const { user } = useAuthStore();
   const { notes, isLoading, isConnected } = useCollaborationStore();
   const [newNote, setNewNote] = useState('');
@@ -103,133 +104,151 @@ export const LiveNotes = () => {
   };
 
   return (
-    <Card className="h-full flex flex-col">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <MessageSquare className="h-5 w-5 text-blue-500" />
-          Live Notes
-          {!isConnected ? (
-            <Badge variant="destructive" className="ml-auto flex items-center gap-1">
-              <WifiOff className="h-3 w-3" />
-              Offline
-            </Badge>
-          ) : (
-            <Badge variant="secondary" className="ml-auto">
-              {notes.length}
-            </Badge>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
-        {/* New note input */}
-        <div className="flex gap-2">
-          <Textarea
-            placeholder="Add a note..."
-            value={newNote}
-            onChange={(e) => setNewNote(e.target.value)}
-            className="resize-none min-h-[60px]"
-            disabled={isSubmitting || !isConnected}
-          />
-          <Button
-            onClick={handleCreateNote}
-            disabled={!newNote.trim() || isSubmitting}
-            size="icon"
-            className="shrink-0"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
-        </div>
+    <div className="h-full flex flex-col gap-4">
+      {/* New note input */}
+      <div className="flex gap-2">
+        <Textarea
+          placeholder="Add a note..."
+          value={newNote}
+          onChange={(e) => setNewNote(e.target.value)}
+          className="resize-none min-h-[80px] bg-muted/30 border-muted-foreground/20 focus:border-primary/50 transition-colors"
+          disabled={isSubmitting || !isConnected}
+        />
+        <Button
+          onClick={handleCreateNote}
+          disabled={!newNote.trim() || isSubmitting}
+          size="icon"
+          aria-label="Send note"
+          className="shrink-0 h-10 w-10"
+        >
+          <Send className="h-5 w-5" />
+        </Button>
+      </div>
 
-        {/* Notes list */}
-        <ScrollArea className="flex-1">
-          <div className="space-y-3 pr-4">
-            {isLoading ? (
-              <div className="text-center text-muted-foreground py-8">
-                Loading notes...
+      <div className="flex items-center justify-between px-1">
+        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Recent Notes
+        </h3>
+        {!isConnected ? (
+          <Badge variant="destructive" className="flex items-center gap-1 text-[10px] h-5">
+            <WifiOff className="h-3 w-3" />
+            Offline
+          </Badge>
+        ) : (
+          <span className="text-xs text-muted-foreground">
+            {notes.length} notes
+          </span>
+        )}
+      </div>
+
+      {/* Notes list */}
+      <ScrollArea className="flex-1 -mx-2 px-2">
+        <div className="space-y-3 pb-4">
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-8 text-muted-foreground gap-2">
+              <LoaderWrapper />
+              <p className="text-sm">Syncing notes...</p>
+            </div>
+          ) : notes.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-muted-foreground gap-3 border-2 border-dashed border-muted rounded-xl bg-muted/10 mx-2">
+              <div className="bg-background p-3 rounded-full shadow-sm">
+                <MessageSquare className="h-6 w-6 opacity-50" />
               </div>
-            ) : notes.length === 0 ? (
-              <div className="text-center text-muted-foreground py-8">
-                No notes yet. Be the first to add one!
+              <div className="text-center">
+                <p className="text-sm font-medium">No notes yet</p>
+                <p className="text-xs opacity-75">Start the conversation!</p>
               </div>
-            ) : (
-              notes.map((note) => (
-                <div
-                  key={note.id}
-                  className="p-3 rounded-lg bg-muted/50 space-y-2"
-                >
-                  {editingId === note.id ? (
-                    // Edit mode
-                    <div className="space-y-2">
-                      <Textarea
-                        value={editContent}
-                        onChange={(e) => setEditContent(e.target.value)}
-                        className="resize-none min-h-[60px]"
+            </div>
+          ) : (
+            notes.map((note) => (
+              <div
+                key={note.id}
+                className="group relative p-3 rounded-xl bg-card border shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                {editingId === note.id ? (
+                  // Edit mode
+                  <div className="space-y-2">
+                    <Textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      className="resize-none min-h-[60px]"
+                      disabled={isSubmitting}
+                      autoFocus
+                    />
+                    <div className="flex gap-2 justify-end">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={cancelEditing}
                         disabled={isSubmitting}
-                      />
-                      <div className="flex gap-2 justify-end">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={cancelEditing}
-                          disabled={isSubmitting}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={() => handleEditNote(note.id)}
-                          disabled={!editContent.trim() || isSubmitting}
-                        >
-                          <Check className="h-4 w-4" />
-                        </Button>
-                      </div>
+                        className="h-7 w-7"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => handleEditNote(note.id)}
+                        disabled={!editContent.trim() || isSubmitting}
+                        className="h-7 w-7"
+                      >
+                        <Check className="h-4 w-4" />
+                      </Button>
                     </div>
-                  ) : (
-                    // View mode
-                    <>
-                      <p className="text-sm">{note.content}</p>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">{note.userName}</span>
-                          <span>•</span>
-                          <span>
-                            {formatDistanceToNow(note.timestamp, { addSuffix: true })}
-                          </span>
-                          {note.edited && (
-                            <Badge variant="outline" className="text-[10px]">
-                              edited
-                            </Badge>
-                          )}
-                        </div>
-                        {user && String(user.id) === note.userId && (
-                          <div className="flex gap-1">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-6 w-6"
-                              onClick={() => startEditing(note.id, note.content)}
-                            >
-                              <Edit2 className="h-3 w-3" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-6 w-6 text-destructive"
-                              onClick={() => handleDeleteNote(note.id)}
-                            >
-                              <Trash2 className="h-3 w-3" />
-                            </Button>
-                          </div>
+                  </div>
+                ) : (
+                  // View mode
+                  <>
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{note.content}</p>
+                    <div className="mt-2 flex items-center justify-between pt-2 border-t border-border/50">
+                      <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                        <Avatar className="h-4 w-4">
+                          <AvatarFallback className="text-[8px] bg-primary/10 text-primary">
+                            {note.userName.substring(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="font-medium">{note.userName}</span>
+                        <span>•</span>
+                        <span>
+                          {formatDistanceToNow(note.timestamp, { addSuffix: true })}
+                        </span>
+                        {note.edited && (
+                          <span className="italic opacity-75">(edited)</span>
                         )}
                       </div>
-                    </>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
+
+                      {/* Actions - visible on hover */}
+                      {user && String(user.id) === note.userId && (
+                        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 hover:bg-muted"
+                            onClick={() => startEditing(note.id, note.content)}
+                          >
+                            <Edit2 className="h-3 w-3 text-muted-foreground" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 hover:bg-red-50 hover:text-red-600"
+                            onClick={() => handleDeleteNote(note.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };
+
+const LoaderWrapper = () => (
+  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+);

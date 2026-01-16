@@ -1,8 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Users, Circle } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { usePresence } from '../hooks/usePresence';
 
 export const PresenceIndicator = () => {
@@ -23,95 +22,98 @@ export const PresenceIndicator = () => {
   };
 
   return (
-    <Card className="h-full flex flex-col">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Users className="h-5 w-5 text-green-500" />
-          Team Presence
-          <Badge variant="default" className="ml-auto bg-green-500">
-            {onlineUsersCount} online
-          </Badge>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1 overflow-hidden">
-        <ScrollArea className="h-full">
-          <div className="space-y-4 pr-4">
-            {/* Online users */}
-            {onlineUsers.length > 0 && (
-              <div className="space-y-2">
+    <div className="h-full flex flex-col">
+      <ScrollArea className="flex-1 -mx-2 px-2">
+        <div className="space-y-6">
+          {/* Online users */}
+          {onlineUsers.length > 0 && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between px-1">
                 <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Online Now
                 </h4>
-                <div className="space-y-2">
-                  {onlineUsers.map((user) => (
-                    <div
-                      key={user.id}
-                      className="flex items-center gap-3 p-2 rounded-lg bg-green-500/10"
-                    >
-                      <div className="relative">
-                        <Avatar className="h-8 w-8">
-                          <AvatarFallback className="text-xs bg-green-500 text-white">
-                            {getInitials(user.displayName)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <Circle className="absolute -bottom-0.5 -right-0.5 h-3 w-3 fill-green-500 text-green-500" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">
-                          {user.displayName}
-                        </p>
-                        <p className="text-xs text-muted-foreground">Active now</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <Badge variant="outline" className="text-[10px] h-5 border-green-200 text-green-700 bg-green-50">
+                  {onlineUsersCount}
+                </Badge>
               </div>
-            )}
+              <div className="space-y-1">
+                {onlineUsers.map((user) => (
+                  <div
+                    key={user.id}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="relative">
+                      <Avatar className="h-9 w-9 border-2 border-background ring-1 ring-border">
+                        <AvatarFallback className="text-xs bg-green-50 text-green-700 font-medium">
+                          {getInitials(user.displayName)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 border-2 border-background"></span>
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">
+                        {user.displayName}
+                      </p>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        Active now
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-            {/* Offline users */}
-            {offlineUsers.length > 0 && (
-              <div className="space-y-2">
+          {/* Offline users */}
+          {offlineUsers.length > 0 && (
+            <div className="space-y-3">
+              <div className="px-1">
                 <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Recently Active
+                  Away
                 </h4>
-                <div className="space-y-2">
-                  {offlineUsers.map((user) => (
-                    <div
-                      key={user.id}
-                      className="flex items-center gap-3 p-2 rounded-lg bg-muted/50"
-                    >
-                      <div className="relative">
-                        <Avatar className="h-8 w-8">
-                          <AvatarFallback className="text-xs">
-                            {getInitials(user.displayName)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <Circle className="absolute -bottom-0.5 -right-0.5 h-3 w-3 fill-muted-foreground text-muted-foreground" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-muted-foreground truncate">
-                          {user.displayName}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {formatLastSeen(user.lastSeen)}
-                        </p>
-                      </div>
+              </div>
+              <div className="space-y-1">
+                {offlineUsers.map((user) => (
+                  <div
+                    key={user.id}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors opacity-75 hover:opacity-100"
+                  >
+                    <div className="relative">
+                      <Avatar className="h-9 w-9 border-2 border-background">
+                        <AvatarFallback className="text-xs text-muted-foreground">
+                          {getInitials(user.displayName)}
+                        </AvatarFallback>
+                      </Avatar>
                     </div>
-                  ))}
-                </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-muted-foreground truncate">
+                        {user.displayName}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatLastSeen(user.lastSeen)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            {/* Empty state */}
-            {onlineUsers.length === 0 && offlineUsers.length === 0 && (
-              <div className="text-center text-muted-foreground py-8">
-                <Users className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">No team members yet</p>
+          {/* Empty state */}
+          {onlineUsers.length === 0 && offlineUsers.length === 0 && (
+            <div className="text-center text-muted-foreground py-12">
+              <div className="bg-muted/30 p-3 rounded-full w-fit mx-auto mb-3">
+                <Users className="h-6 w-6 opacity-50" />
               </div>
-            )}
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
+              <p className="text-sm font-medium">No team members</p>
+              <p className="text-xs opacity-75 mt-1">Invite your team to collaborate</p>
+            </div>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };

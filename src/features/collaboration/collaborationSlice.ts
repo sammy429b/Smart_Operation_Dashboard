@@ -19,7 +19,7 @@ export interface PresenceUser {
 
 export interface ActivityEvent {
   id: string;
-  type: 'NOTE_CREATED' | 'NOTE_UPDATED' | 'NOTE_DELETED' | 'USER_JOINED' | 'USER_LEFT';
+  type: 'NOTE_CREATED' | 'NOTE_UPDATED' | 'NOTE_DELETED' | 'USER_JOINED' | 'USER_LEFT' | 'ALERT_RAISED';
   userId: string;
   userName: string;
   data: Record<string, unknown>;

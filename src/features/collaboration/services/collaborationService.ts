@@ -58,6 +58,7 @@ const PATHS = {
   NOTES: 'operational_notes',
   PRESENCE: 'presence',
   ACTIVITY: 'activity_feed',
+  ALERTS: 'shared_alerts',
 };
 
 export const collaborationService = {
@@ -259,5 +260,97 @@ export const collaborationService = {
     });
 
     return () => off(activityRef);
+  },
+
+  // ==================== SHARED ALERTS ====================
+
+  // Define the SharedAlert type
+  // Create a shared alert visible to all users
+  async createAlert(
+    type: 'info' | 'warning' | 'error' | 'success' | 'system',
+    message: string,
+    userId: string,
+    userName: string,
+    details?: Record<string, unknown>
+  ): Promise<string> {
+    const db = this.getDatabase();
+    const alertsRef = ref(db, PATHS.ALERTS);
+    const newAlertRef = push(alertsRef);
+
+    const alert = {
+      type,
+      message,
+      userId,
+      userName,
+      timestamp: Date.now(),
+      details: details || {},
+    };
+
+    await set(newAlertRef, alert);
+
+    // Log activity
+    await this.logActivity('ALERT_RAISED', userId, userName, {
+      alertId: newAlertRef.key,
+      alertType: type,
+      message
+    });
+
+    return newAlertRef.key!;
+  },
+
+  // Subscribe to shared alerts (real-time)
+  subscribeToAlerts(callback: (alerts: Array<{
+    id: string;
+    type: 'info' | 'warning' | 'error' | 'success' | 'system';
+    message: string;
+    userId: string;
+    userName: string;
+    timestamp: number;
+    details?: Record<string, unknown>;
+  }>) => void, limit = 50): () => void {
+    const db = this.getDatabase();
+    const alertsRef = ref(db, PATHS.ALERTS);
+
+    onValue(alertsRef, (snapshot: DataSnapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const alerts = Object.entries(data)
+          .map(([id, alert]) => ({
+            id,
+            ...(alert as any),
+          }))
+          .sort((a, b) => b.timestamp - a.timestamp)
+          .slice(0, limit);
+        callback(alerts);
+      } else {
+        callback([]);
+      }
+    });
+
+    return () => off(alertsRef);
+  },
+
+  // Subscribe to new alerts only (for notifications)
+  subscribeToNewAlerts(callback: (alert: {
+    id: string;
+    type: 'info' | 'warning' | 'error' | 'success' | 'system';
+    message: string;
+    userId: string;
+    userName: string;
+    timestamp: number;
+    details?: Record<string, unknown>;
+  }) => void): () => void {
+    const db = this.getDatabase();
+    const alertsRef = ref(db, PATHS.ALERTS);
+
+    onChildAdded(alertsRef, (snapshot: DataSnapshot) => {
+      const alert = {
+        id: snapshot.key!,
+        ...(snapshot.val() as any),
+      };
+      callback(alert);
+    });
+
+    return () => off(alertsRef);
   },
 };
