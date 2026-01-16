@@ -240,9 +240,11 @@ export function AlertsPage() {
                   <p className="text-xs mt-1">System events will appear here</p>
                 </div>
               ) : (
-                alerts.map((alert) => (
-                  <AlertItem key={alert.id} alert={alert} />
-                ))
+                [...alerts]
+                  .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+                  .map((alert) => (
+                    <AlertItem key={alert.id} alert={alert} />
+                  ))
               )}
             </div>
           </ScrollArea>

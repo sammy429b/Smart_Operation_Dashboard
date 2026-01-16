@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { Bell, AlertCircle, CheckCircle, Info, AlertTriangle, Monitor, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { VirtualizedList } from '@/shared/components/VirtualizedList';
 import { useAlertsStore, type Alert } from '../alertsSlice';
 import { cn } from '@/lib/utils';
 
@@ -44,24 +45,63 @@ const getBorderColor = (type: Alert['type']) => {
   }
 };
 
+const ITEM_HEIGHT = 72;
+const MAX_HEIGHT = 360;
+
 export const NotificationPopover = ({ onViewAll }: NotificationPopoverProps) => {
+  const [open, setOpen] = useState(false);
   const { alerts, unreadCount, markAllRead } = useAlertsStore();
 
-  // Get the most recent 5 alerts for the preview
-  const recentAlerts = alerts.slice(0, 5);
+  // Get the most recent 20 alerts for the preview, sorted by time (newest first)
+  const recentAlerts = [...alerts]
+    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    .slice(0, 20);
 
   const handleViewAll = () => {
     markAllRead();
+    setOpen(false);
     onViewAll();
   };
 
   const handleAlertClick = () => {
     markAllRead();
+    setOpen(false);
     onViewAll();
   };
 
+  const renderAlertItem = (alert: Alert) => (
+    <button
+      key={alert.id}
+      onClick={handleAlertClick}
+      className={cn(
+        "w-full text-left p-3 hover:bg-muted/50 transition-colors border-l-4",
+        getBorderColor(alert.type)
+      )}
+    >
+      <div className="flex gap-3">
+        <div className="mt-0.5 shrink-0">
+          {getAlertIcon(alert.type)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium line-clamp-2">
+            {alert.message}
+          </p>
+          <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
+            <span>{format(alert.timestamp, 'HH:mm')}</span>
+            {alert.source && (
+              <>
+                <span>•</span>
+                <span className="font-medium truncate">{alert.source}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
@@ -93,49 +133,22 @@ export const NotificationPopover = ({ onViewAll }: NotificationPopoverProps) => 
           )}
         </div>
 
-        {/* Notification List */}
-        <ScrollArea className="max-h-80">
-          {recentAlerts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
-              <Bell className="h-8 w-8 mb-2 opacity-50" />
-              <p className="text-sm">No notifications yet</p>
-              <p className="text-xs">Alerts from your team will appear here</p>
-            </div>
-          ) : (
-            <div className="divide-y">
-              {recentAlerts.map((alert) => (
-                <button
-                  key={alert.id}
-                  onClick={() => handleAlertClick()}
-                  className={cn(
-                    "w-full text-left p-3 hover:bg-muted/50 transition-colors border-l-4",
-                    getBorderColor(alert.type)
-                  )}
-                >
-                  <div className="flex gap-3">
-                    <div className="mt-0.5 shrink-0">
-                      {getAlertIcon(alert.type)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium line-clamp-2">
-                        {alert.message}
-                      </p>
-                      <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
-                        <span>{format(alert.timestamp, 'HH:mm')}</span>
-                        {alert.source && (
-                          <>
-                            <span>•</span>
-                            <span className="font-medium truncate">{alert.source}</span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </ScrollArea>
+        {/* Virtualized Notification List */}
+        {recentAlerts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
+            <Bell className="h-8 w-8 mb-2 opacity-50" />
+            <p className="text-sm">No notifications yet</p>
+            <p className="text-xs">Alerts from your team will appear here</p>
+          </div>
+        ) : (
+          <VirtualizedList
+            items={recentAlerts}
+            renderItem={renderAlertItem}
+            itemHeight={ITEM_HEIGHT}
+            height={Math.min(recentAlerts.length * ITEM_HEIGHT, MAX_HEIGHT)}
+            className="divide-y"
+          />
+        )}
 
         {/* Footer */}
         {alerts.length > 0 && (

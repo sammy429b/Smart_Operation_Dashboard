@@ -82,7 +82,7 @@ export function AppLayout() {
             </Button>
 
             {/* Notifications */}
-            <NotificationPopover onViewAll={() => navigate('/collaboration')} />
+            <NotificationPopover onViewAll={() => navigate('/alerts')} />
           </div>
         </header>
 

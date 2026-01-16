@@ -41,9 +41,15 @@ export const useAlertsStore = create<AlertsState & AlertsActions>()((set) => ({
   ...INITIAL_STATE,
 
   addAlert: (alert) =>
-    set((state) => ({
-      alerts: [alert, ...state.alerts].slice(0, 100), // Keep last 100 alerts
-    })),
+    set((state) => {
+      // Prevent duplicate alerts by checking if ID already exists
+      if (state.alerts.some((a) => a.id === alert.id)) {
+        return state;
+      }
+      return {
+        alerts: [alert, ...state.alerts].slice(0, 100), // Keep last 100 alerts
+      };
+    }),
 
   clearAlerts: () => set({ alerts: [], unreadCount: 0 }),
 
