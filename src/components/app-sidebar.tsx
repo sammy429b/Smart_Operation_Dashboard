@@ -20,6 +20,8 @@ import {
   User,
   LogOut,
   Settings,
+  Users,
+  Bell,
 } from "lucide-react"
 import { useAuth } from "@/features/auth"
 import { Link, useLocation } from "react-router-dom"
@@ -47,6 +49,16 @@ const items = [
     title: "News Feed",
     url: "/news",
     icon: Newspaper,
+  },
+  {
+    title: "Collaboration",
+    url: "/collaboration",
+    icon: Users,
+  },
+  {
+    title: "Alerts",
+    url: "/alerts",
+    icon: Bell,
   },
 ]
 

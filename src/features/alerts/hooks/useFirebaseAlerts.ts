@@ -5,9 +5,14 @@ import { collaborationService } from '@/features/collaboration/services/collabor
 import { useCollaborationStore } from '@/features/collaboration';
 import { toast } from 'sonner';
 
+// Track if subscription is already active globally
+let isSubscribed = false;
+let unsubscribeGlobal: (() => void) | null = null;
+
 /**
  * Hook for Firebase-based shared alerts
  * Provides real-time alert sync across all users
+ * Uses singleton pattern to prevent duplicate subscriptions
  */
 export const useFirebaseAlerts = () => {
   const { user, isAuthenticated } = useAuthStore();
@@ -21,8 +26,15 @@ export const useFirebaseAlerts = () => {
       return;
     }
 
+    // Only subscribe if not already subscribed (singleton pattern)
+    if (isSubscribed) {
+      return;
+    }
+
+    isSubscribed = true;
+
     // Subscribe to alerts from Firebase
-    const unsubscribe = collaborationService.subscribeToAlerts((alerts) => {
+    unsubscribeGlobal = collaborationService.subscribeToAlerts((alerts) => {
       // On initial load, just populate without notifications
       if (initialLoadRef.current) {
         initialLoadRef.current = false;
@@ -75,7 +87,11 @@ export const useFirebaseAlerts = () => {
     setSocketStatus('connected');
 
     return () => {
-      unsubscribe();
+      if (unsubscribeGlobal) {
+        unsubscribeGlobal();
+        unsubscribeGlobal = null;
+      }
+      isSubscribed = false;
       initialLoadRef.current = true;
       processedIdsRef.current.clear();
     };

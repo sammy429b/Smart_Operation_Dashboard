@@ -4,6 +4,8 @@ import { AppLayout } from './layouts/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { WeatherDashboard, CountriesDashboard, NewsDashboard } from '@/features/dashboard';
+import { CollaborationPage } from '@/features/collaboration/pages/CollaborationPage';
+import { AlertsPage } from '@/features/alerts/pages/AlertsPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ export const router = createBrowserRouter([
       {
         path: 'news',
         element: <NewsDashboard />,
+      },
+      {
+        path: 'collaboration',
+        element: <CollaborationPage />,
+      },
+      {
+        path: 'alerts',
+        element: <AlertsPage />,
       },
     ],
   },
