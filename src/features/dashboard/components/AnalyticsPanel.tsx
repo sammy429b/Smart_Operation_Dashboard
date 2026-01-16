@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { TrendingUp, Globe2, Newspaper } from "lucide-react";
-import { WIDGET_COLORS, CHART_COLORS, CARD_STYLES } from "@/shared/theme";
+import { WIDGET_COLORS, CHART_COLORS, CARD_STYLES, MULTI_CHART_COLORS } from "@/shared/theme";
 import { useDashboardStore } from "../dashboardStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useMemo } from "react";
@@ -52,14 +52,8 @@ export function AnalyticsPanel() {
   }, [news]);
 
   // Chart colors for bars
-  const barColors = [
-    CHART_COLORS.primary,
-    CHART_COLORS.secondary,
-    CHART_COLORS.tertiary,
-    CHART_COLORS.quaternary,
-    CHART_COLORS.quinary,
-    CHART_COLORS.info,
-  ];
+  // Chart colors for bars
+  const barColors = MULTI_CHART_COLORS;
 
   if (isLoading) {
     return (
@@ -136,7 +130,11 @@ export function AnalyticsPanel() {
                   labelStyle={{ fontWeight: 600 }}
                   formatter={(value: number) => [`${value}M`, 'Population']}
                 />
-                <Bar dataKey="population" fill="url(#colorPopulation)" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="population" radius={[6, 6, 0, 0]}>
+                  {regionData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={barColors[index % barColors.length]} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           ) : (

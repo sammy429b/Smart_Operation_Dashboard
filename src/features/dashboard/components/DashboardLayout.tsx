@@ -10,11 +10,11 @@ export function DashboardLayout() {
   const { error, isLoading, refetch } = useDashboardData();
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-primary/20">
+    <div className="min-h-screen p-0 space-y-6">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
             Smart Operations Dashboard
           </h1>
           <p className="text-sm md:text-base text-muted-foreground">

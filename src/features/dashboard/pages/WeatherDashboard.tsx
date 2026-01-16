@@ -58,7 +58,7 @@ export function WeatherDashboard() {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-primary/20">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Link to="/" className="text-muted-foreground hover:text-foreground text-sm w-fit">
@@ -132,7 +132,7 @@ export function WeatherDashboard() {
                   </div>
                   <span className="text-xl text-muted-foreground capitalize mt-2">{weather.condition}</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-black/20 rounded-full">
+                <div className="flex items-center gap-2 px-4 py-2 bg-card/50 rounded-full">
                   <MapPin className="h-5 w-5 text-muted-foreground" />
                   <span className="text-lg font-medium">{weather.location}</span>
                 </div>
@@ -168,8 +168,8 @@ export function WeatherDashboard() {
           <Card className={CARD_STYLES.default}>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800">
-                  <Wind className="h-6 w-6 text-slate-500" />
+                <div className="p-3 rounded-xl bg-secondary text-foreground">
+                  <Wind className="h-6 w-6 text-muted-foreground" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm text-muted-foreground">Wind Speed</p>
@@ -190,8 +190,8 @@ export function WeatherDashboard() {
         <Card className={CARD_STYLES.default}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-amber-100 dark:bg-amber-900/30">
-                <Thermometer className="h-6 w-6 text-amber-500" />
+              <div className="p-3 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                <Thermometer className="h-6 w-6" />
               </div>
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Feels Like</p>
@@ -208,8 +208,8 @@ export function WeatherDashboard() {
         <Card className={CARD_STYLES.default}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-purple-100 dark:bg-purple-900/30">
-                <Eye className="h-6 w-6 text-purple-500" />
+              <div className="p-3 rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400">
+                <Eye className="h-6 w-6" />
               </div>
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Visibility</p>
@@ -222,8 +222,8 @@ export function WeatherDashboard() {
         <Card className={CARD_STYLES.default}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-rose-100 dark:bg-rose-900/30">
-                <Gauge className="h-6 w-6 text-rose-500" />
+              <div className="p-3 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
+                <Gauge className="h-6 w-6" />
               </div>
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Pressure</p>

@@ -26,11 +26,11 @@ import {
 } from '@/components/ui/select';
 
 const ALERT_TYPES = [
-  { value: 'info', label: 'Info', icon: Info, color: 'text-blue-500' },
-  { value: 'warning', label: 'Warning', icon: AlertTriangle, color: 'text-yellow-500' },
-  { value: 'error', label: 'Error', icon: AlertCircle, color: 'text-red-500' },
+  { value: 'info', label: 'Info', icon: Info, color: 'text-muted-foreground' },
+  { value: 'warning', label: 'Warning', icon: AlertTriangle, color: 'text-amber-500' },
+  { value: 'error', label: 'Error', icon: AlertCircle, color: 'text-destructive' },
   { value: 'success', label: 'Success', icon: CheckCircle, color: 'text-green-500' },
-  { value: 'system', label: 'System', icon: Bell, color: 'text-purple-500' },
+  { value: 'system', label: 'System', icon: Bell, color: 'text-primary' },
 ] as const;
 
 export const AlertsPanel = () => {

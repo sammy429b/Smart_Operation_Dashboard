@@ -11,7 +11,7 @@ export function LoginPage() {
       </div>
 
       {/* Left Panel - Branding (hidden on mobile, visible on lg+) */}
-      <div className="hidden lg:flex lg:w-1/2 xl:w-2/5 bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground p-8 lg:p-12 flex-col justify-between">
+      <div className="hidden lg:flex lg:w-1/2 xl:w-2/5 bg-primary text-primary-foreground p-8 lg:p-12 flex-col justify-between">
         <div>
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center size-12 rounded-2xl bg-primary-foreground/20 backdrop-blur-sm">
@@ -59,7 +59,7 @@ export function LoginPage() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/20 p-4 sm:p-6 md:p-8">
+      <div className="flex-1 flex items-center justify-center bg-background p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-md space-y-6 sm:space-y-8">
           {/* Mobile Logo (visible on mobile, hidden on lg+) */}
           <div className="text-center space-y-3 lg:hidden">

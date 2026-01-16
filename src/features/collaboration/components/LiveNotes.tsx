@@ -230,7 +230,7 @@ export const LiveNotes = () => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-6 w-6 hover:bg-red-50 hover:text-red-600"
+                            className="h-6 w-6 hover:bg-destructive/10 hover:text-destructive"
                             onClick={() => handleDeleteNote(note.id)}
                           >
                             <Trash2 className="h-3 w-3" />

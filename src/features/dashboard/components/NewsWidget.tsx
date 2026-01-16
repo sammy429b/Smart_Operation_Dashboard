@@ -80,7 +80,7 @@ export function NewsWidget() {
                 rel="noopener noreferrer"
                 className="block group/item py-1.5"
               >
-                <div className="flex flex-col gap-2 p-3 md:p-4 rounded-xl border bg-white/60 dark:bg-black/20 hover:bg-white/90 dark:hover:bg-black/40 hover:border-primary/30 transition-all duration-200 hover:shadow-md">
+                <div className="flex flex-col gap-2 p-3 md:p-4 rounded-xl border bg-card/60 hover:bg-card/90 hover:border-primary/30 transition-all duration-200 hover:shadow-md">
                   <h4 className="font-medium text-sm md:text-base leading-tight line-clamp-2 group-hover/item:text-primary transition-colors">
                     {article.title}
                   </h4>

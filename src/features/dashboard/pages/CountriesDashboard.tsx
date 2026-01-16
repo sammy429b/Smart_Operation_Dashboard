@@ -8,7 +8,7 @@ import { countriesApi, type ExtendedCountryData, type CountriesApiResponse } fro
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { WIDGET_COLORS, REGION_COLORS, CARD_STYLES } from "@/shared/theme";
+import { WIDGET_COLORS, REGION_COLORS, CARD_STYLES, MULTI_CHART_COLORS } from "@/shared/theme";
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { useDebounce } from "@/shared/hooks";
@@ -144,11 +144,11 @@ export function CountriesDashboard() {
     return Object.values(stats).sort((a, b) => b.population - a.population);
   }, [filteredCountries]);
 
-  const chartColors = ["#14b8a6", "#06b6d4", "#0ea5e9", "#6366f1", "#8b5cf6", "#a855f7"];
+  const chartColors = MULTI_CHART_COLORS;
   const currentFilterOption = FILTER_OPTIONS.find(f => f.value === filterType)!;
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-primary/20">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Link to="/" className="text-muted-foreground hover:text-foreground text-sm w-fit">

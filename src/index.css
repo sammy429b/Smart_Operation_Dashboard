@@ -3,21 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* 
- * Smart Operations Dashboard Theme
- * A professional monitoring dashboard with a modern, tech-focused color palette
- * Primary: Deep Blue (trust, reliability, technology)
- * Accent colors for different data categories
- */
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -33,6 +23,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -41,7 +32,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
+  --color-sidebar: var(--sidebar-background);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
@@ -52,118 +43,100 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   
-  /* Light Theme - Jewel Bright */
-  /* Pure White with subtle Violet tint */
-  --background: oklch(0.98 0.01 280);
-  /* Deep Indigo Text */
-  --foreground: oklch(0.2 0.05 280);
+  /* Slate - Cool Gray (Light) */
+  --background: hsl(210 40% 98%);
+  --foreground: hsl(222.2 84% 4.9%);
   
-  /* White Crystallized Card */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.05 280);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 84% 4.9%);
   
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.05 280);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 84% 4.9%);
   
-  /* Primary - Electric Violet (Hex #7c3aed approx) */
-  --primary: oklch(0.55 0.25 280);
-  --primary-foreground: oklch(0.98 0 0);
+  /* Violet - Vivid Primary */
+  --primary: hsl(262.1 83.3% 57.8%);
+  --primary-foreground: hsl(210 40% 98%);
   
-  /* Secondary - Neon Fuchsia (Hex #d946ef approx) */
-  --secondary: oklch(0.65 0.25 320);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
   
-  /* Muted - Cool Lavender */
-  --muted: oklch(0.96 0.02 280);
-  --muted-foreground: oklch(0.5 0.08 280);
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
   
-  /* Accent - Cyan Glow */
-  --accent: oklch(0.94 0.05 220);
-  --accent-foreground: oklch(0.3 0.1 220);
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
   
-  /* Destructive */
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
   
-  /* Borders - Tinted */
-  --border: oklch(0.9 0.02 280);
-  --input: oklch(0.9 0.02 280);
-  --ring: oklch(0.55 0.25 280);
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(262.1 83.3% 57.8%);
   
-  /* Chart Colors - Vivid Jewel Tones */
-  --chart-1: oklch(0.55 0.25 280); /* Violet */
-  --chart-2: oklch(0.6 0.2 190);   /* Cyan */
-  --chart-3: oklch(0.65 0.22 320); /* Magenta */
-  --chart-4: oklch(0.7 0.2 40);    /* Amber */
-  --chart-5: oklch(0.6 0.2 150);   /* Emerald */
+  /* Charts - Adjusted for Slate/Violet */
+  --chart-1: hsl(262.1 83.3% 57.8%);
+  --chart-2: hsl(191.6 91.4% 36.5%);
+  --chart-3: hsl(217.2 91.2% 59.8%);
+  --chart-4: hsl(47.9 95.8% 53.1%);
+  --chart-5: hsl(25.9 94.7% 62.5%);
   
-  /* Sidebar */
-  --sidebar: oklch(0.98 0.01 280);
-  --sidebar-foreground: oklch(0.2 0.05 280);
-  --sidebar-primary: oklch(0.55 0.25 280);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.96 0.02 280);
-  --sidebar-accent-foreground: oklch(0.2 0.05 280);
-  --sidebar-border: oklch(0.9 0.02 280);
-  --sidebar-ring: oklch(0.55 0.25 280);
+  --sidebar-background: hsl(210 40% 98%);
+  --sidebar-foreground: hsl(222.2 84% 4.9%);
+  --sidebar-primary: hsl(262.1 83.3% 57.8%);
+  --sidebar-primary-foreground: hsl(210 40% 98%);
+  --sidebar-accent: hsl(210 40% 96.1%);
+  --sidebar-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(262.1 83.3% 57.8%);
 }
 
 .dark {
-  /* Dark Theme - Deep Outer Space */
-  /* Pitch Indigo/Black (Not gray) */
-  --background: oklch(0.1 0.05 280);
-  --foreground: oklch(0.98 0.01 280);
+  /* Slate - Cool Gray (Dark) */
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
   
-  /* Glassy Navy Cards */
-  --card: oklch(0.15 0.06 280);
-  --card-foreground: oklch(0.98 0.01 280);
+  --card: hsl(222.2 84% 4.9%);
+  --card-foreground: hsl(210 40% 98%);
   
-  --popover: oklch(0.15 0.06 280);
-  --popover-foreground: oklch(0.98 0.01 280);
+  --popover: hsl(222.2 84% 4.9%);
+  --popover-foreground: hsl(210 40% 98%);
   
-  /* Primary - Neon Violet */
-  --primary: oklch(0.65 0.28 280);
-  --primary-foreground: oklch(0.98 0 0);
+  /* Violet - Vivid Primary (Dark) */
+  --primary: hsl(263.4 70% 50.4%);
+  --primary-foreground: hsl(210 40% 98%);
   
-  /* Secondary - Hot Pink */
-  --secondary: oklch(0.65 0.25 320);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: hsl(217.2 32.6% 17.5%);
+  --secondary-foreground: hsl(210 40% 98%);
   
-  /* Muted - Deep Indigo */
-  --muted: oklch(0.2 0.06 280);
-  --muted-foreground: oklch(0.7 0.06 280);
+  --muted: hsl(217.2 32.6% 17.5%);
+  --muted-foreground: hsl(215 20.2% 65.1%);
   
-  /* Accent - Electric Blue */
-  --accent: oklch(0.25 0.1 240);
-  --accent-foreground: oklch(0.98 0 0);
+  --accent: hsl(217.2 32.6% 17.5%);
+  --accent-foreground: hsl(210 40% 98%);
   
-  /* Destructive */
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(210 40% 98%);
   
-  /* Borders - Glowing */
-  --border: oklch(0.25 0.08 280);
-  --input: oklch(0.25 0.08 280);
-  --ring: oklch(0.65 0.28 280);
+  --border: hsl(217.2 32.6% 17.5%);
+  --input: hsl(217.2 32.6% 17.5%);
+  --ring: hsl(263.4 70% 50.4%);
   
-  /* Chart Colors - Neon Lights */
-  --chart-1: oklch(0.7 0.25 280);  /* Neon Violet */
-  --chart-2: oklch(0.75 0.2 190);  /* Neon Cyan */
-  --chart-3: oklch(0.7 0.25 320);  /* Neon Pink */
-  --chart-4: oklch(0.8 0.2 40);    /* Neon Amber */
-  --chart-5: oklch(0.75 0.2 150);  /* Neon Green */
+  --chart-1: hsl(263.4 70% 50.4%);
+  --chart-2: hsl(191.6 91.4% 36.5%);
+  --chart-3: hsl(217.2 91.2% 59.8%);
+  --chart-4: hsl(47.9 95.8% 53.1%);
+  --chart-5: hsl(25.9 94.7% 62.5%);
   
-  /* Sidebar */
-  --sidebar: oklch(0.12 0.06 280);
-  --sidebar-foreground: oklch(0.98 0.01 280);
-  --sidebar-primary: oklch(0.65 0.28 280);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.25 0.08 280);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.25 0.08 280);
-  --sidebar-ring: oklch(0.65 0.28 280);
+  --sidebar-background: hsl(222.2 84% 4.9%);
+  --sidebar-foreground: hsl(210 40% 98%);
+  --sidebar-primary: hsl(262.1 83.3% 57.8%);
+  --sidebar-primary-foreground: hsl(210 40% 98%);
+  --sidebar-accent: hsl(217.2 32.6% 17.5%);
+  --sidebar-accent-foreground: hsl(210 40% 98%);
+  --sidebar-border: hsl(217.2 32.6% 17.5%);
+  --sidebar-ring: hsl(262.1 83.3% 57.8%);
 }
 
 @layer base {
@@ -172,40 +145,6 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-}
-
-/* Custom scrollbar for dashboard feel */
-@layer base {
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: oklch(0.7 0.01 260 / 30%);
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.6 0.01 260 / 50%);
-  }
-  .dark ::-webkit-scrollbar-thumb {
-    background: oklch(0.4 0.01 260 / 40%);
-  }
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.5 0.01 260 / 60%);
-  }
-}
-
-/* Smooth transitions for theme switching */
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  body, .bg-background, .bg-card, .bg-primary, .bg-secondary, .bg-muted, .bg-accent {
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }

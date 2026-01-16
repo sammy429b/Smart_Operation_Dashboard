@@ -32,7 +32,7 @@ export const PresenceIndicator = () => {
                 <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Online Now
                 </h4>
-                <Badge variant="outline" className="text-[10px] h-5 border-green-200 text-green-700 bg-green-50">
+                <Badge variant="outline" className="text-[10px] h-5 border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 bg-green-500/10">
                   {onlineUsersCount}
                 </Badge>
               </div>
@@ -44,7 +44,7 @@ export const PresenceIndicator = () => {
                   >
                     <div className="relative">
                       <Avatar className="h-9 w-9 border-2 border-background ring-1 ring-border">
-                        <AvatarFallback className="text-xs bg-green-50 text-green-700 font-medium">
+                        <AvatarFallback className="text-xs bg-green-500/10 text-green-700 dark:text-green-400 font-medium">
                           {getInitials(user.displayName)}
                         </AvatarFallback>
                       </Avatar>

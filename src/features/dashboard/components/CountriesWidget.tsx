@@ -64,7 +64,7 @@ export function CountriesWidget() {
               <Link
                 key={index}
                 to="/countries"
-                className="flex items-center justify-between p-2.5 md:p-3 rounded-xl bg-white/60 dark:bg-black/20 hover:bg-white/80 dark:hover:bg-black/30 transition-colors cursor-pointer group/item"
+                className="flex items-center justify-between p-2.5 md:p-3 rounded-xl bg-card/60 hover:bg-card/90 transition-colors cursor-pointer group/item"
               >
                 <div className="flex flex-col gap-0.5 min-w-0">
                   <span className="font-semibold text-sm md:text-base truncate group-hover/item:text-primary transition-colors">

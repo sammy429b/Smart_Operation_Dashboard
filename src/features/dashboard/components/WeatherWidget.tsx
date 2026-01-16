@@ -73,7 +73,7 @@ export function WeatherWidget() {
             </div>
 
             <div className="grid grid-cols-2 gap-2 md:gap-3">
-              <div className="flex items-center gap-2 bg-white/60 dark:bg-black/20 p-2 md:p-3 rounded-xl backdrop-blur-sm">
+              <div className="flex items-center gap-2 bg-card/60 p-2 md:p-3 rounded-xl backdrop-blur-sm shadow-sm ring-1 ring-border/50">
                 <div className={`p-1.5 md:p-2 rounded-lg ${theme.accent}`}>
                   <Droplets className={`h-4 w-4 md:h-5 md:w-5 ${theme.icon}`} />
                 </div>
@@ -82,9 +82,9 @@ export function WeatherWidget() {
                   <span className="text-sm md:text-base font-semibold truncate">{weather.humidity}%</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 bg-white/60 dark:bg-black/20 p-2 md:p-3 rounded-xl backdrop-blur-sm">
-                <div className="p-1.5 md:p-2 rounded-lg bg-slate-100 dark:bg-slate-900/50">
-                  <Wind className="h-4 w-4 md:h-5 md:w-5 text-slate-500" />
+              <div className="flex items-center gap-2 bg-card/60 p-2 md:p-3 rounded-xl backdrop-blur-sm shadow-sm ring-1 ring-border/50">
+                <div className="p-1.5 md:p-2 rounded-lg bg-secondary">
+                  <Wind className="h-4 w-4 md:h-5 md:w-5 text-muted-foreground" />
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="text-[10px] md:text-xs text-muted-foreground">Wind</span>
