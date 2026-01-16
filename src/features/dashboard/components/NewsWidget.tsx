@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { VirtualizedList } from "@/shared/components/VirtualizedList";
 import { Newspaper, ExternalLink, Clock, ArrowRight } from "lucide-react";
 import { useDashboardStore } from "../dashboardStore";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -67,15 +67,18 @@ export function NewsWidget() {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1 p-0 overflow-hidden">
-        <ScrollArea className="h-full max-h-[540px] md:max-h-[570px] px-4 md:px-6 pb-4">
-          <div className="space-y-3 py-1">
-            {news.map((article) => (
+        <div className="flex-1 p-0 overflow-hidden px-4 md:px-6 pb-4">
+          <VirtualizedList
+            items={news}
+            height={540}
+            itemHeight={140}
+            renderItem={(article) => (
               <a
                 key={article.id}
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block group/item"
+                className="block group/item py-1.5"
               >
                 <div className="flex flex-col gap-2 p-3 md:p-4 rounded-xl border bg-white/60 dark:bg-black/20 hover:bg-white/90 dark:hover:bg-black/40 hover:border-primary/30 transition-all duration-200 hover:shadow-md">
                   <h4 className="font-medium text-sm md:text-base leading-tight line-clamp-2 group-hover/item:text-primary transition-colors">
@@ -98,9 +101,10 @@ export function NewsWidget() {
                   </div>
                 </div>
               </a>
-            ))}
-          </div>
-        </ScrollArea>
+            )}
+            className="h-full"
+          />
+        </div>
       </CardContent>
     </Card>
   );
