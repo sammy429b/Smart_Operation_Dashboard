@@ -106,7 +106,7 @@ export const NotificationPopover = ({ onViewAll }: NotificationPopoverProps) => 
               {recentAlerts.map((alert) => (
                 <button
                   key={alert.id}
-                  onClick={() => handleAlertClick(alert)}
+                  onClick={() => handleAlertClick()}
                   className={cn(
                     "w-full text-left p-3 hover:bg-muted/50 transition-colors border-l-4",
                     getBorderColor(alert.type)
