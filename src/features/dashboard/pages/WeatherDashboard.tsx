@@ -127,7 +127,7 @@ export function WeatherDashboard() {
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex flex-col">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-6xl md:text-7xl lg:text-8xl font-bold">{weather.temp}</span>
+                    <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">{weather.temp}</span>
                     <span className="text-2xl md:text-3xl text-muted-foreground">°C</span>
                   </div>
                   <span className="text-xl text-muted-foreground capitalize mt-2">{weather.condition}</span>
