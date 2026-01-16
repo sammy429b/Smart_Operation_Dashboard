@@ -131,7 +131,7 @@ export function AnalyticsPanel() {
                   formatter={(value: number) => [`${value}M`, 'Population']}
                 />
                 <Bar dataKey="population" radius={[6, 6, 0, 0]}>
-                  {regionData.map((entry, index) => (
+                  {regionData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={barColors[index % barColors.length]} />
                   ))}
                 </Bar>
