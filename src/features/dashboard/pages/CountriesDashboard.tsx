@@ -148,7 +148,7 @@ export function CountriesDashboard() {
   const currentFilterOption = FILTER_OPTIONS.find(f => f.value === filterType)!;
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-primary/20">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Link to="/" className="text-muted-foreground hover:text-foreground text-sm w-fit">

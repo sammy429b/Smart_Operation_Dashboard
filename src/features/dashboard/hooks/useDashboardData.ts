@@ -24,7 +24,7 @@ export const useDashboardData = () => {
     try {
       // Fetch all data in parallel
       const [weatherData, countriesData, newsData] = await Promise.all([
-        weatherApi.getCurrentWeather('New York'), // Could be dynamic
+        weatherApi.getCurrentWeather('New Delhi'), // Could be dynamic
         countriesApi.getCountries(),
         spaceflightApi.getNews(),
       ]);

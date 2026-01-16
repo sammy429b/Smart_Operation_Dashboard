@@ -54,109 +54,116 @@
 :root {
   --radius: 0.75rem;
   
-  /* Light Theme - Clean, Professional, Trust-inspiring */
-  --background: oklch(0.985 0.002 250);
-  --foreground: oklch(0.2 0.02 260);
+  /* Light Theme - Jewel Bright */
+  /* Pure White with subtle Violet tint */
+  --background: oklch(0.98 0.01 280);
+  /* Deep Indigo Text */
+  --foreground: oklch(0.2 0.05 280);
   
+  /* White Crystallized Card */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 260);
+  --card-foreground: oklch(0.2 0.05 280);
   
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 260);
+  --popover-foreground: oklch(0.2 0.05 280);
   
-  /* Primary - Deep Blue (Technology, Trust) */
-  --primary: oklch(0.45 0.2 260);
+  /* Primary - Electric Violet (Hex #7c3aed approx) */
+  --primary: oklch(0.55 0.25 280);
   --primary-foreground: oklch(0.98 0 0);
   
-  /* Secondary - Soft Blue-Gray */
-  --secondary: oklch(0.94 0.01 250);
-  --secondary-foreground: oklch(0.3 0.02 260);
+  /* Secondary - Neon Fuchsia (Hex #d946ef approx) */
+  --secondary: oklch(0.65 0.25 320);
+  --secondary-foreground: oklch(0.98 0 0);
   
-  /* Muted - Light Gray with blue tint */
-  --muted: oklch(0.95 0.01 250);
-  --muted-foreground: oklch(0.5 0.02 260);
+  /* Muted - Cool Lavender */
+  --muted: oklch(0.96 0.02 280);
+  --muted-foreground: oklch(0.5 0.08 280);
   
-  /* Accent - Teal (Data, Analytics) */
-  --accent: oklch(0.92 0.03 200);
-  --accent-foreground: oklch(0.25 0.05 200);
-  
-  /* Destructive - Red for alerts */
-  --destructive: oklch(0.55 0.22 25);
-  
-  /* Borders and Inputs */
-  --border: oklch(0.9 0.01 250);
-  --input: oklch(0.92 0.01 250);
-  --ring: oklch(0.45 0.2 260);
-  
-  /* Chart Colors - Consistent Dashboard Palette */
-  --chart-1: oklch(0.55 0.2 260);  /* Primary Blue */
-  --chart-2: oklch(0.65 0.18 170); /* Teal - Countries */
-  --chart-3: oklch(0.65 0.2 45);   /* Orange - News/Alerts */
-  --chart-4: oklch(0.6 0.22 300);  /* Purple - Analytics */
-  --chart-5: oklch(0.6 0.2 140);   /* Green - Success/Active */
-  
-  /* Sidebar */
-  --sidebar: oklch(0.98 0.005 250);
-  --sidebar-foreground: oklch(0.2 0.02 260);
-  --sidebar-primary: oklch(0.45 0.2 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.94 0.02 250);
-  --sidebar-accent-foreground: oklch(0.25 0.02 260);
-  --sidebar-border: oklch(0.9 0.01 250);
-  --sidebar-ring: oklch(0.45 0.2 260);
-}
-
-.dark {
-  /* Dark Theme - Deep, Professional, Modern Dashboard */
-  --background: oklch(0.14 0.015 260);
-  --foreground: oklch(0.95 0 0);
-  
-  --card: oklch(0.18 0.015 260);
-  --card-foreground: oklch(0.95 0 0);
-  
-  --popover: oklch(0.18 0.015 260);
-  --popover-foreground: oklch(0.95 0 0);
-  
-  /* Primary - Vibrant Blue */
-  --primary: oklch(0.65 0.2 260);
-  --primary-foreground: oklch(0.1 0.02 260);
-  
-  /* Secondary */
-  --secondary: oklch(0.25 0.015 260);
-  --secondary-foreground: oklch(0.95 0 0);
-  
-  /* Muted */
-  --muted: oklch(0.22 0.015 260);
-  --muted-foreground: oklch(0.65 0.02 260);
-  
-  /* Accent - Teal */
-  --accent: oklch(0.25 0.03 200);
-  --accent-foreground: oklch(0.9 0.03 200);
+  /* Accent - Cyan Glow */
+  --accent: oklch(0.94 0.05 220);
+  --accent-foreground: oklch(0.3 0.1 220);
   
   /* Destructive */
   --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
   
-  /* Borders and Inputs */
-  --border: oklch(0.28 0.015 260);
-  --input: oklch(0.25 0.015 260);
-  --ring: oklch(0.65 0.2 260);
+  /* Borders - Tinted */
+  --border: oklch(0.9 0.02 280);
+  --input: oklch(0.9 0.02 280);
+  --ring: oklch(0.55 0.25 280);
   
-  /* Chart Colors - Vibrant for dark mode */
-  --chart-1: oklch(0.65 0.22 260);  /* Bright Blue */
-  --chart-2: oklch(0.7 0.18 170);   /* Teal */
-  --chart-3: oklch(0.7 0.2 45);     /* Orange */
-  --chart-4: oklch(0.65 0.22 300);  /* Purple */
-  --chart-5: oklch(0.7 0.18 140);   /* Green */
+  /* Chart Colors - Vivid Jewel Tones */
+  --chart-1: oklch(0.55 0.25 280); /* Violet */
+  --chart-2: oklch(0.6 0.2 190);   /* Cyan */
+  --chart-3: oklch(0.65 0.22 320); /* Magenta */
+  --chart-4: oklch(0.7 0.2 40);    /* Amber */
+  --chart-5: oklch(0.6 0.2 150);   /* Emerald */
   
   /* Sidebar */
-  --sidebar: oklch(0.16 0.015 260);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.65 0.2 260);
-  --sidebar-primary-foreground: oklch(0.1 0.02 260);
-  --sidebar-accent: oklch(0.22 0.02 260);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.28 0.015 260);
-  --sidebar-ring: oklch(0.65 0.2 260);
+  --sidebar: oklch(0.98 0.01 280);
+  --sidebar-foreground: oklch(0.2 0.05 280);
+  --sidebar-primary: oklch(0.55 0.25 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.96 0.02 280);
+  --sidebar-accent-foreground: oklch(0.2 0.05 280);
+  --sidebar-border: oklch(0.9 0.02 280);
+  --sidebar-ring: oklch(0.55 0.25 280);
+}
+
+.dark {
+  /* Dark Theme - Deep Outer Space */
+  /* Pitch Indigo/Black (Not gray) */
+  --background: oklch(0.1 0.05 280);
+  --foreground: oklch(0.98 0.01 280);
+  
+  /* Glassy Navy Cards */
+  --card: oklch(0.15 0.06 280);
+  --card-foreground: oklch(0.98 0.01 280);
+  
+  --popover: oklch(0.15 0.06 280);
+  --popover-foreground: oklch(0.98 0.01 280);
+  
+  /* Primary - Neon Violet */
+  --primary: oklch(0.65 0.28 280);
+  --primary-foreground: oklch(0.98 0 0);
+  
+  /* Secondary - Hot Pink */
+  --secondary: oklch(0.65 0.25 320);
+  --secondary-foreground: oklch(0.98 0 0);
+  
+  /* Muted - Deep Indigo */
+  --muted: oklch(0.2 0.06 280);
+  --muted-foreground: oklch(0.7 0.06 280);
+  
+  /* Accent - Electric Blue */
+  --accent: oklch(0.25 0.1 240);
+  --accent-foreground: oklch(0.98 0 0);
+  
+  /* Destructive */
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  
+  /* Borders - Glowing */
+  --border: oklch(0.25 0.08 280);
+  --input: oklch(0.25 0.08 280);
+  --ring: oklch(0.65 0.28 280);
+  
+  /* Chart Colors - Neon Lights */
+  --chart-1: oklch(0.7 0.25 280);  /* Neon Violet */
+  --chart-2: oklch(0.75 0.2 190);  /* Neon Cyan */
+  --chart-3: oklch(0.7 0.25 320);  /* Neon Pink */
+  --chart-4: oklch(0.8 0.2 40);    /* Neon Amber */
+  --chart-5: oklch(0.75 0.2 150);  /* Neon Green */
+  
+  /* Sidebar */
+  --sidebar: oklch(0.12 0.06 280);
+  --sidebar-foreground: oklch(0.98 0.01 280);
+  --sidebar-primary: oklch(0.65 0.28 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.25 0.08 280);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(0.25 0.08 280);
+  --sidebar-ring: oklch(0.65 0.28 280);
 }
 
 @layer base {

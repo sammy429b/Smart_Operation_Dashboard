@@ -11,8 +11,8 @@ import { useDebounce } from "@/shared/hooks";
 import type { WeatherData } from "../dashboardStore";
 
 export function WeatherDashboard() {
-  const [city, setCity] = useState("London");
-  const [searchInput, setSearchInput] = useState("London");
+  const [city, setCity] = useState("New Delhi");
+  const [searchInput, setSearchInput] = useState("New Delhi");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +58,7 @@ export function WeatherDashboard() {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 space-y-6 bg-gradient-to-br from-background via-background to-primary/20">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Link to="/" className="text-muted-foreground hover:text-foreground text-sm w-fit">

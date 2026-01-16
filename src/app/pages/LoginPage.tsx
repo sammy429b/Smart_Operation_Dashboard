@@ -59,7 +59,7 @@ export function LoginPage() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4 sm:p-6 md:p-8">
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/20 p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-md space-y-6 sm:space-y-8">
           {/* Mobile Logo (visible on mobile, hidden on lg+) */}
           <div className="text-center space-y-3 lg:hidden">

@@ -7,40 +7,40 @@
 
 // Widget category colors - use these for consistent widget styling
 export const WIDGET_COLORS = {
-  // Weather Widget - Sky blue theme
+  // Weather Widget - Electric Azure
   weather: {
-    icon: 'text-sky-500',
-    gradient: 'from-sky-50 via-blue-50 to-indigo-50 dark:from-sky-950/40 dark:via-blue-950/40 dark:to-indigo-950/40',
-    accent: 'bg-sky-100 dark:bg-sky-900/50',
-    badge: 'bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300',
+    icon: 'text-sky-500 dark:text-sky-400',
+    gradient: 'bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 dark:from-sky-900/40 dark:via-blue-900/30 dark:to-indigo-900/40 border border-sky-200/50 dark:border-sky-700/50 shadow-lg backdrop-blur-xl',
+    accent: 'bg-gradient-to-r from-sky-400/20 to-blue-500/20 text-sky-700 dark:text-sky-300',
+    badge: 'bg-gradient-to-r from-sky-100 to-blue-100 dark:from-sky-900/60 dark:to-blue-900/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-700/50',
   },
-  // Countries Widget - Emerald/Teal theme
+  // Countries Widget - Neon Emerald
   countries: {
-    icon: 'text-emerald-500',
-    gradient: 'from-emerald-50/50 to-teal-50/50 dark:from-emerald-950/30 dark:to-teal-950/30',
-    accent: 'bg-emerald-100 dark:bg-emerald-900/50',
-    badge: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+    icon: 'text-emerald-500 dark:text-emerald-400',
+    gradient: 'bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-900/40 dark:via-teal-900/30 dark:to-cyan-900/40 border border-emerald-200/50 dark:border-emerald-700/50 shadow-lg backdrop-blur-xl',
+    accent: 'bg-gradient-to-r from-emerald-400/20 to-teal-500/20 text-emerald-700 dark:text-emerald-300',
+    badge: 'bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/60 dark:to-teal-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50',
   },
-  // News Widget - Orange/Amber theme
+  // News Widget - Radiant Amber
   news: {
-    icon: 'text-orange-500',
-    gradient: 'from-orange-50/50 to-amber-50/50 dark:from-orange-950/30 dark:to-amber-950/30',
-    accent: 'bg-orange-100 dark:bg-orange-900/50',
-    badge: 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300',
+    icon: 'text-amber-500 dark:text-amber-400',
+    gradient: 'bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-amber-900/40 dark:via-orange-900/30 dark:to-red-900/40 border border-amber-200/50 dark:border-amber-700/50 shadow-lg backdrop-blur-xl',
+    accent: 'bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-700 dark:text-amber-300',
+    badge: 'bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/60 dark:to-orange-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50',
   },
-  // Analytics - Indigo/Purple theme
+  // Analytics - Cosmic Violet
   analytics: {
-    icon: 'text-indigo-500',
-    gradient: 'from-indigo-50/50 to-purple-50/50 dark:from-indigo-950/30 dark:to-purple-950/30',
-    accent: 'bg-indigo-100 dark:bg-indigo-900/50',
-    badge: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300',
+    icon: 'text-violet-500 dark:text-violet-400',
+    gradient: 'bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 dark:from-violet-900/40 dark:via-purple-900/30 dark:to-fuchsia-900/40 border border-violet-200/50 dark:border-violet-700/50 shadow-lg backdrop-blur-xl',
+    accent: 'bg-gradient-to-r from-violet-400/20 to-fuchsia-500/20 text-violet-700 dark:text-violet-300',
+    badge: 'bg-gradient-to-r from-violet-100 to-fuchsia-100 dark:from-violet-900/60 dark:to-fuchsia-900/60 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700/50',
   },
-  // System/CPU - Rose/Pink theme
+  // System/CPU - Cyber Rose
   system: {
-    icon: 'text-rose-500',
-    gradient: 'from-rose-50/50 to-pink-50/50 dark:from-rose-950/30 dark:to-pink-950/30',
-    accent: 'bg-rose-100 dark:bg-rose-900/50',
-    badge: 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300',
+    icon: 'text-rose-500 dark:text-rose-400',
+    gradient: 'bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 dark:from-rose-900/40 dark:via-pink-900/30 dark:to-red-900/40 border border-rose-200/50 dark:border-rose-700/50 shadow-lg backdrop-blur-xl',
+    accent: 'bg-gradient-to-r from-rose-400/20 to-pink-500/20 text-rose-700 dark:text-rose-300',
+    badge: 'bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/60 dark:to-pink-900/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-700/50',
   },
 } as const;
 
