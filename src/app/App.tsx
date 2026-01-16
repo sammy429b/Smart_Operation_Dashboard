@@ -16,7 +16,7 @@ function App() {
       <FirebaseInitializer>
         <RouterProvider router={router} />
       </FirebaseInitializer>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
     </ThemeProvider>
   );
 }
