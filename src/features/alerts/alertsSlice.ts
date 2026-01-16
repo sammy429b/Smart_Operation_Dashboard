@@ -13,6 +13,7 @@ interface AlertsState {
   alerts: Alert[];
   socketStatus: 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
   counters: Record<string, number>;
+  unreadCount: number; // New: count of unread alerts
 }
 
 interface AlertsActions {
@@ -21,6 +22,8 @@ interface AlertsActions {
   removeAlert: (id: string) => void;
   setSocketStatus: (status: AlertsState['socketStatus']) => void;
   updateCounter: (key: string, value: number) => void;
+  markAllRead: () => void; // New: mark all alerts as read
+  incrementUnread: () => void; // New: increment unread count
   reset: () => void;
 }
 
@@ -31,6 +34,7 @@ const INITIAL_STATE: AlertsState = {
     activeEvents: 0,
     systemLoad: 0,
   },
+  unreadCount: 0,
 };
 
 export const useAlertsStore = create<AlertsState & AlertsActions>()((set) => ({
@@ -41,7 +45,7 @@ export const useAlertsStore = create<AlertsState & AlertsActions>()((set) => ({
       alerts: [alert, ...state.alerts].slice(0, 100), // Keep last 100 alerts
     })),
 
-  clearAlerts: () => set({ alerts: [] }),
+  clearAlerts: () => set({ alerts: [], unreadCount: 0 }),
 
   removeAlert: (id) =>
     set((state) => ({
@@ -53,6 +57,13 @@ export const useAlertsStore = create<AlertsState & AlertsActions>()((set) => ({
   updateCounter: (key, value) =>
     set((state) => ({
       counters: { ...state.counters, [key]: value },
+    })),
+
+  markAllRead: () => set({ unreadCount: 0 }),
+
+  incrementUnread: () =>
+    set((state) => ({
+      unreadCount: state.unreadCount + 1,
     })),
 
   reset: () => set(INITIAL_STATE),

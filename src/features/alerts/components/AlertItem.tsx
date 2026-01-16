@@ -24,46 +24,48 @@ export const AlertItem = ({ alert, style }: AlertItemProps) => {
     }
   };
 
-  const getBorderColor = () => {
-    switch (alert.type) {
-      case 'error':
-        return 'border-l-red-500';
-      case 'warning':
-        return 'border-l-amber-500';
-      case 'success':
-        return 'border-l-green-500';
-      case 'system':
-        return 'border-l-blue-500';
-      default:
-        return 'border-l-slate-400';
-    }
-  }
+
 
   return (
-    <div style={style} className="px-4 py-2">
+    <div style={style} className="px-1">
       <div className={cn(
-        "flex items-start gap-3 p-3 rounded-lg border bg-card text-card-foreground shadow-sm animate-in fade-in slide-in-from-right-5 hover:bg-accent/50 transition-colors border-l-4",
-        getBorderColor()
+        "group flex items-start gap-3 p-3 rounded-xl border bg-card/50 hover:bg-muted/50 hover:shadow-sm transition-all duration-200 relative overflow-hidden",
+        alert.type === 'error' && "bg-red-50/10 border-red-100/20",
+        alert.type === 'warning' && "bg-amber-50/10 border-amber-100/20",
+        alert.type === 'success' && "bg-green-50/10 border-green-100/20",
+        alert.type === 'system' && "bg-blue-50/10 border-blue-100/20"
       )}>
-        <div className="mt-0.5 shrink-0">
+        <div className={cn(
+          "mt-0.5 shrink-0 p-1.5 rounded-full bg-background ring-1 ring-inset shadow-sm",
+          alert.type === 'error' && "text-red-600 ring-red-500/20",
+          alert.type === 'warning' && "text-amber-600 ring-amber-500/20",
+          alert.type === 'success' && "text-green-600 ring-green-500/20",
+          alert.type === 'system' && "text-blue-600 ring-blue-500/20",
+          (alert.type === 'info' || !alert.type) && "text-slate-600 ring-slate-500/20"
+        )}>
           {getIcon()}
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium leading-none mb-1">
-            {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
-          </p>
-          <p className="text-sm text-muted-foreground break-words">
+        <div className="flex-1 min-w-0 flex flex-col gap-1">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-sm font-semibold leading-none tracking-tight">
+              {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+            </p>
+            <span className="text-[10px] text-muted-foreground tabular-nums opacity-70 group-hover:opacity-100 transition-opacity">
+              {format(alert.timestamp, 'HH:mm:ss')}
+            </span>
+          </div>
+
+          <p className="text-sm text-muted-foreground leading-snug break-words">
             {alert.message}
           </p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-            <span>{format(alert.timestamp, 'HH:mm:ss')}</span>
-            {alert.source && (
-              <>
-                <span>•</span>
-                <span className="font-medium">{alert.source}</span>
-              </>
-            )}
-          </div>
+
+          {alert.source && (
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="text-[10px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-medium uppercase tracking-wide">
+                {alert.source}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
