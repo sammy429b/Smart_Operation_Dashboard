@@ -12,11 +12,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Activity, LogOut, User, Settings, Loader2, Menu, Users, PanelRightClose, MessageSquare, Bell } from 'lucide-react';
+import { Activity, LogOut, User, Settings, Loader2, Menu, Users, PanelRightClose, MessageSquare, Bell, Moon, Sun, Monitor } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTheme } from "next-themes";
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { ThemeToggle } from '@/shared/components';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 
@@ -28,7 +33,9 @@ export function AppLayout() {
   const [activeTab, setActiveTab] = useState<string>('notes');
   const [isMobile, setIsMobile] = useState(false);
   const { isConnected, presence } = useCollaborationStore();
+
   const { unreadCount, markAllRead } = useAlertsStore();
+  const { setTheme, theme } = useTheme();
 
   // Subscribe to Firebase alerts at app level (even when panel is closed)
   useFirebaseAlerts();
@@ -110,8 +117,7 @@ export function AppLayout() {
               )}
             </Button>
 
-            {/* Theme Toggle */}
-            <ThemeToggle />
+            {/* Theme Toggle moved to Profile Menu */}
 
             {/* Alert Notifications Popover */}
             <NotificationPopover
@@ -153,9 +159,32 @@ export function AppLayout() {
                   Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
-                  <Settings className="mr-2 size-4" />
                   Settings
                 </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <Moon className="absolute mr-2 h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    <span className="ml-[2px] w-full">Theme</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
+                      <Sun className="mr-2 h-4 w-4" />
+                      <span>Light</span>
+                      {theme === "light" && <span className="ml-auto text-primary">✓</span>}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+                      <Moon className="mr-2 h-4 w-4" />
+                      <span>Dark</span>
+                      {theme === "dark" && <span className="ml-auto text-primary">✓</span>}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+                      <Monitor className="mr-2 h-4 w-4" />
+                      <span>System</span>
+                      {theme === "system" && <span className="ml-auto text-primary">✓</span>}
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer focus:text-destructive">
                   <LogOut className="mr-2 size-4" />
@@ -182,8 +211,7 @@ export function AppLayout() {
               )}
             </Button>
 
-            {/* Theme Toggle - Mobile */}
-            <ThemeToggle />
+            {/* Theme Toggle moved to menu */}
 
             {/* Alert Notifications - Mobile */}
             <NotificationPopover
@@ -224,6 +252,36 @@ export function AppLayout() {
                       <Settings className="size-5" />
                       Settings
                     </Button>
+
+                    <div className="pt-2 px-2">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 px-2">Theme</p>
+                      <div className="grid grid-cols-3 gap-1">
+                        <Button
+                          variant={theme === 'light' ? 'secondary' : 'ghost'}
+                          size="sm"
+                          onClick={() => setTheme('light')}
+                          className="h-8 text-xs justify-start px-2"
+                        >
+                          <Sun className="mr-2 size-3.5" /> Light
+                        </Button>
+                        <Button
+                          variant={theme === 'dark' ? 'secondary' : 'ghost'}
+                          size="sm"
+                          onClick={() => setTheme('dark')}
+                          className="h-8 text-xs justify-start px-2"
+                        >
+                          <Moon className="mr-2 size-3.5" /> Dark
+                        </Button>
+                        <Button
+                          variant={theme === 'system' ? 'secondary' : 'ghost'}
+                          size="sm"
+                          onClick={() => setTheme('system')}
+                          className="h-8 text-xs justify-start px-2"
+                        >
+                          <Monitor className="mr-2 size-3.5" /> System
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                   <div className="p-4 border-t">
                     <Button
