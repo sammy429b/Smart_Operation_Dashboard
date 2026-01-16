@@ -27,6 +27,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "esModuleInterop": true,
     /* Path aliases for shadcn/ui */
     "baseUrl": ".",
     "paths": {
