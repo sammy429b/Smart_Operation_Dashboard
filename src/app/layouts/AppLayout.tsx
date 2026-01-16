@@ -1,7 +1,7 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useSessionValidator } from '@/features/auth';
 import { SessionWarning } from '@/features/auth';
-import { useAlertsStore, useFirebaseAlerts, NotificationPopover } from '@/features/alerts';
+import { useFirebaseAlerts, NotificationPopover } from '@/features/alerts';
 import { Button } from '@/components/ui/button';
 import { Loader2, Moon, Sun } from 'lucide-react';
 import { useTheme } from "next-themes";
@@ -19,6 +19,7 @@ import {
 
 export function AppLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { setTheme, theme } = useTheme();
 
   // Subscribe to Firebase alerts
@@ -81,7 +82,7 @@ export function AppLayout() {
             </Button>
 
             {/* Notifications */}
-            <NotificationPopover />
+            <NotificationPopover onViewAll={() => navigate('/collaboration')} />
           </div>
         </header>
 

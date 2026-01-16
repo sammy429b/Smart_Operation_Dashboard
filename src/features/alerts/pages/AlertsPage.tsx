@@ -1,18 +1,66 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bell, AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
-import { AlertsPanel } from "@/features/alerts/components/AlertsPanel";
+import { Bell, AlertTriangle, CheckCircle, Info, XCircle, Plus } from "lucide-react";
+import { AlertItem } from "@/features/alerts/components/AlertItem";
 import { useAlertsStore } from "@/features/alerts";
+import { useFirebaseAlerts } from "@/features/alerts/hooks/useFirebaseAlerts";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const ALERT_TYPES = [
+  { value: 'info', label: 'Info', color: 'text-blue-500' },
+  { value: 'warning', label: 'Warning', color: 'text-amber-500' },
+  { value: 'error', label: 'Error', color: 'text-destructive' },
+  { value: 'success', label: 'Success', color: 'text-green-500' },
+  { value: 'system', label: 'System', color: 'text-primary' },
+] as const;
 
 export function AlertsPage() {
   const { alerts, markAllRead, clearAlerts, unreadCount } = useAlertsStore();
+  const { raiseAlert, isConnected } = useFirebaseAlerts();
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [alertType, setAlertType] = useState<'info' | 'warning' | 'error' | 'success' | 'system'>('info');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const errorCount = alerts.filter(a => a.type === 'error').length;
   const warningCount = alerts.filter(a => a.type === 'warning').length;
   const infoCount = alerts.filter(a => a.type === 'info' || a.type === 'success').length;
+
+  const handleRaiseAlert = async () => {
+    if (!alertMessage.trim()) return;
+
+    setIsSubmitting(true);
+    try {
+      await raiseAlert(alertType, alertMessage.trim());
+      setAlertMessage('');
+      setAlertType('info');
+      setDialogOpen(false);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
@@ -37,6 +85,60 @@ export function AlertsPage() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm" disabled={!isConnected}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Raise Alert
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Raise Alert</DialogTitle>
+                  <DialogDescription>
+                    This alert will be visible to all connected users in real-time.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="alert-type">Alert Type</Label>
+                    <Select value={alertType} onValueChange={(v) => setAlertType(v as typeof alertType)}>
+                      <SelectTrigger id="alert-type">
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {ALERT_TYPES.map(({ value, label, color }) => (
+                          <SelectItem key={value} value={value}>
+                            <span className={color}>{label}</span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="alert-message">Message</Label>
+                    <Textarea
+                      id="alert-message"
+                      placeholder="Enter alert message..."
+                      value={alertMessage}
+                      onChange={(e) => setAlertMessage(e.target.value)}
+                      className="min-h-[100px]"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleRaiseAlert}
+                    disabled={!alertMessage.trim() || isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Raise Alert'}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
             <Button variant="outline" size="sm" onClick={markAllRead} disabled={unreadCount === 0}>
               <CheckCircle className="h-4 w-4 mr-2" />
               Mark All Read
@@ -129,8 +231,20 @@ export function AlertsPage() {
           </div>
         </CardHeader>
         <CardContent className="p-0 flex-1">
-          <ScrollArea className="h-[400px] p-4">
-            <AlertsPanel />
+          <ScrollArea className="h-[400px]">
+            <div className="p-4 space-y-2">
+              {alerts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-muted-foreground text-center">
+                  <Bell className="h-10 w-10 mb-3 opacity-30" />
+                  <p className="text-sm font-medium">No alerts</p>
+                  <p className="text-xs mt-1">System events will appear here</p>
+                </div>
+              ) : (
+                alerts.map((alert) => (
+                  <AlertItem key={alert.id} alert={alert} />
+                ))
+              )}
+            </div>
           </ScrollArea>
         </CardContent>
       </Card>
